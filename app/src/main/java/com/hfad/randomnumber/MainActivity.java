@@ -27,11 +27,11 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 countNumberText.setText(String.valueOf(progress));
-            //    seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
+                seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
             }
 
             @Override
@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         TextView outputNumber = findViewById(R.id.outputNumbers);
         TextView countNumberText = findViewById(R.id.countNumber);
         TextView errorText = findViewById(R.id.textinput_error);
-        int outputValue = 0;
+        int outputValue;
 
         if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
             errorText.setText(getResources().getString(R.string.error_empty));
