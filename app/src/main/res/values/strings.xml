@@ -3,4 +3,6 @@
     <string name="range">Выберите диапазон чисел (от и до)</string>
     <string name="button">Выбрать числа</string>
     <string name="count_number">Выбрать количество чисел:</string>
+    <string name="error_toNumber">Второе число должно быть больше первого!</string>
+    <string name="error_empty">Заполните поле(я)</string>
 </resources>
