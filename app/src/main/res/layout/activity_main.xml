@@ -47,21 +47,23 @@
 
     <EditText
         android:id="@+id/fromNumber"
-        android:layout_width="156dp"
-        android:layout_height="55dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="24dp"
         android:ems="10"
         android:inputType="numberSigned"
+        app:layout_constraintEnd_toStartOf="@+id/toNumber"
+        app:layout_constraintHorizontal_bias="0.685"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/range" />
 
     <EditText
         android:id="@+id/toNumber"
-        android:layout_width="156dp"
-        android:layout_height="55dp"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="88dp"
         android:ems="10"
         android:inputType="numberSigned"
         app:layout_constraintEnd_toEndOf="parent"
