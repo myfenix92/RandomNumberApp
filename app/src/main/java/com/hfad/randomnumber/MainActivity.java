@@ -10,9 +10,11 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -82,6 +84,26 @@ public class MainActivity extends AppCompatActivity {
 //        }
 //    };
 
+    public List<Integer> setSortBy(int sort, List<Integer> values) {
+        List<Integer> numbers = values;
+        switch (sort) {
+            case (0):
+            {
+                break;
+            }
+            case (1):
+            {
+                Collections.sort(numbers);
+                break;
+            }
+            case (2):
+            {
+                Collections.sort(numbers, Collections.reverseOrder());
+                break;
+            }
+        }
+        return numbers;
+    }
     public void chooseRangeNumbers(View view) {
         TextView fromNumber = findViewById(R.id.fromNumber);
         TextView toNumber = findViewById(R.id.toNumber);
@@ -89,6 +111,9 @@ public class MainActivity extends AppCompatActivity {
         TextView countNumberText = findViewById(R.id.countNumber);
         TextView errorText = findViewById(R.id.textinput_error);
         CheckBox checkBoxUniquie = findViewById(R.id.checkBoxUniquie);
+        Spinner sortValues = findViewById(R.id.sortValue);
+
+        String sortValuesType = String.valueOf(sortValues.getSelectedItemId());
         int outputValue;
 
         if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
@@ -114,7 +139,7 @@ public class MainActivity extends AppCompatActivity {
 
             }
 
-            outputNumber.setText(String.valueOf(numbers));
+            outputNumber.setText(String.valueOf(setSortBy(Integer.parseInt(sortValuesType), numbers)));
         }
 
 
