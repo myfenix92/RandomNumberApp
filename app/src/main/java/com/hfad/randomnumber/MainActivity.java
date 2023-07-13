@@ -3,8 +3,12 @@ package com.hfad.randomnumber;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -20,18 +24,23 @@ public class MainActivity extends AppCompatActivity {
 
         SeekBar seekBar = findViewById(R.id.seekBar);
         TextView countNumberText = findViewById(R.id.countNumber);
-        TextView fromNumber = findViewById(R.id.fromNumber);
-        TextView toNumber = findViewById(R.id.toNumber);
+        EditText fromNumber = findViewById(R.id.fromNumber);
+        EditText toNumber = findViewById(R.id.toNumber);
 
         seekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 countNumberText.setText(String.valueOf(progress));
+
             }
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
+                if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
+                    seekBar.setMax(1);
+                } else {
+                    seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
+                }
             }
 
             @Override
@@ -42,12 +51,44 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+//    class CheckMaxValue implements TextWatcher {
+//        TextView errorText = findViewById(R.id.textinput_error);
+//        EditText fromNumber = findViewById(R.id.fromNumber);
+//        @Override
+//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//
+//        }
+//
+//        @Override
+//        public void onTextChanged(CharSequence s, int start, int before, int count) {
+//
+//        }
+//
+//        @Override
+//        public void afterTextChanged(Editable s) {
+//            int num;
+//            while (true) {
+//                try {
+//                    num = Integer.parseInt(String.valueOf(s));
+//                    break;
+//                } catch (Exception ex) {
+//                    fromNumber.setText(0);
+//                  //  errorText.setText(getResources().getString(R.string.error_max));
+//                    errorText.setText(String.valueOf(ex));
+//                    //
+//                }
+//            }
+//            errorText.setText(String.valueOf(num));
+//        }
+//    };
+
     public void chooseRangeNumbers(View view) {
         TextView fromNumber = findViewById(R.id.fromNumber);
         TextView toNumber = findViewById(R.id.toNumber);
         TextView outputNumber = findViewById(R.id.outputNumbers);
         TextView countNumberText = findViewById(R.id.countNumber);
         TextView errorText = findViewById(R.id.textinput_error);
+        CheckBox checkBoxUniquie = findViewById(R.id.checkBoxUniquie);
         int outputValue;
 
         if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
@@ -61,10 +102,16 @@ public class MainActivity extends AppCompatActivity {
             while (numbers.size() < Integer.parseInt(String.valueOf(countNumberText.getText()))) {
                 outputValue = (int) (Math.random()*(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1)
                         + Integer.parseInt(String.valueOf(fromNumber.getText())));
-
-                if (!numbers.contains(outputValue)) {
+                
+                if (checkBoxUniquie.isChecked()) {
+                    if (!numbers.contains(outputValue)) {
+                        numbers.add(outputValue);
+                    }
+                } else {
                     numbers.add(outputValue);
                 }
+
+
             }
 
             outputNumber.setText(String.valueOf(numbers));
