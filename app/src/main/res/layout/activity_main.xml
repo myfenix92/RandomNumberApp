@@ -10,27 +10,28 @@
 
     <TextView
         android:id="@+id/range"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="28dp"
         android:text="@string/range"
+        android:textAlignment="center"
         android:textSize="20dp"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ScrollView
         android:id="@+id/ScrollView01"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="8dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginBottom="6dp"
+        android:layout_marginBottom="60dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.3"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button">
+        app:layout_constraintTop_toBottomOf="@+id/button"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:id="@+id/outputNumbers"
@@ -54,8 +55,9 @@
         android:layout_marginEnd="23dp"
         android:digits="0123456789"
         android:ems="10"
+        android:hint="5"
         android:inputType="number"
-        android:maxLength="9"
+        android:maxLength="4"
         app:layout_constraintBaseline_toBaselineOf="@+id/toNumber"
         app:layout_constraintEnd_toStartOf="@+id/toNumber"
         app:layout_constraintStart_toStartOf="parent" />
@@ -68,8 +70,9 @@
         android:layout_marginEnd="16dp"
         android:digits="0123456789"
         android:ems="10"
+        android:hint="23"
         android:inputType="number"
-        android:maxLength="9"
+        android:maxLength="4"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/fromNumber"
         app:layout_constraintTop_toBottomOf="@+id/range" />
@@ -78,11 +81,11 @@
         android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="8dp"
         android:onClick="chooseRangeNumbers"
-        android:text="@string/button"
-        app:layout_constraintEnd_toEndOf="@+id/seekBar"
-        app:layout_constraintStart_toStartOf="@+id/seekBar"
+        android:text="@string/generate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/checkBoxUniquie" />
 
     <TextView
@@ -153,4 +156,16 @@
         app:layout_constraintStart_toEndOf="@+id/checkBoxUniquie"
         app:layout_constraintTop_toTopOf="@+id/seekBar"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/sendValue"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:onClick="sendValues"
+        android:text="@string/send_values"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>

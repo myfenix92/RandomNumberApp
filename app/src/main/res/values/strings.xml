@@ -1,7 +1,9 @@
 <resources>
     <string name="app_name">Random Number</string>
+    <string name="chooser">Отправить сгенерированные числа...</string>
     <string name="range">Выберите диапазон чисел (от и до)</string>
-    <string name="button">Выбрать числа</string>
+    <string name="generate">Сгенерировать</string>
+    <string name="send_values">Отправить</string>
     <string name="count_number">Выбрать количество чисел:</string>
     <string name="error_toNumber">Второе число должно быть больше первого!</string>
     <string name="error_empty">Заполните поле(я)</string>

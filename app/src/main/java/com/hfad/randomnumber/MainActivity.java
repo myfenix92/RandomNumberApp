@@ -2,11 +2,13 @@ package com.hfad.randomnumber;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -33,7 +35,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 countNumberText.setText(String.valueOf(progress));
-
             }
 
             @Override
@@ -47,42 +48,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-                if(seekBar.getProgress() < 1)
+                if(seekBar.getProgress() < 1) {
                     seekBar.setProgress(1);
+                }
             }
         });
     }
-
-//    class CheckMaxValue implements TextWatcher {
-//        TextView errorText = findViewById(R.id.textinput_error);
-//        EditText fromNumber = findViewById(R.id.fromNumber);
-//        @Override
-//        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//
-//        }
-//
-//        @Override
-//        public void onTextChanged(CharSequence s, int start, int before, int count) {
-//
-//        }
-//
-//        @Override
-//        public void afterTextChanged(Editable s) {
-//            int num;
-//            while (true) {
-//                try {
-//                    num = Integer.parseInt(String.valueOf(s));
-//                    break;
-//                } catch (Exception ex) {
-//                    fromNumber.setText(0);
-//                  //  errorText.setText(getResources().getString(R.string.error_max));
-//                    errorText.setText(String.valueOf(ex));
-//                    //
-//                }
-//            }
-//            errorText.setText(String.valueOf(num));
-//        }
-//    };
 
     public List<Integer> setSortBy(int sort, List<Integer> values) {
         List<Integer> numbers = values;
@@ -108,13 +79,14 @@ public class MainActivity extends AppCompatActivity {
         TextView fromNumber = findViewById(R.id.fromNumber);
         TextView toNumber = findViewById(R.id.toNumber);
         TextView outputNumber = findViewById(R.id.outputNumbers);
-        TextView countNumberText = findViewById(R.id.countNumber);
         TextView errorText = findViewById(R.id.textinput_error);
         CheckBox checkBoxUniquie = findViewById(R.id.checkBoxUniquie);
         Spinner sortValues = findViewById(R.id.sortValue);
+        SeekBar seekBar = findViewById(R.id.seekBar);
 
         String sortValuesType = String.valueOf(sortValues.getSelectedItemId());
         int outputValue;
+
 
         if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
             errorText.setText(getResources().getString(R.string.error_empty));
@@ -122,27 +94,38 @@ public class MainActivity extends AppCompatActivity {
             errorText.setText(getResources().getString(R.string.error_toNumber));
         } else {
             errorText.setText("");
+
             List<Integer> numbers = new ArrayList<Integer>();
 
-            while (numbers.size() < Integer.parseInt(String.valueOf(countNumberText.getText()))) {
+            while (numbers.size() < Integer.parseInt(String.valueOf(seekBar.getProgress()))) {
                 outputValue = (int) (Math.random()*(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1)
                         + Integer.parseInt(String.valueOf(fromNumber.getText())));
-                
+
                 if (checkBoxUniquie.isChecked()) {
+                    if (Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1 < seekBar.getMax()) {
+                        seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
+                    }
                     if (!numbers.contains(outputValue)) {
                         numbers.add(outputValue);
                     }
                 } else {
                     numbers.add(outputValue);
                 }
-
-
             }
-
-            outputNumber.setText(String.valueOf(setSortBy(Integer.parseInt(sortValuesType), numbers)));
+            outputNumber.setText(String.valueOf(setSortBy(Integer.parseInt(sortValuesType), numbers)).replaceAll("[\\]\\[]", ""));
+            Button sendValues = findViewById(R.id.sendValue);
+            sendValues.setVisibility(View.VISIBLE);
         }
+    }
 
-
-
+    public void sendValues(View view) {
+        TextView outputNumber = findViewById(R.id.outputNumbers);
+        String outputValues = outputNumber.getText().toString();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, outputValues);
+        String chooserTitle = getString(R.string.chooser);
+        Intent chosenIntent = Intent.createChooser(intent, chooserTitle);
+        startActivity(chosenIntent);
     }
 }
