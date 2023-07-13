@@ -7,7 +7,6 @@
     <string name="count_number">Выбрать количество чисел:</string>
     <string name="error_toNumber">Второе число должно быть больше первого!</string>
     <string name="error_empty">Заполните поле(я)</string>
-    <string name="error_max">Введите число меньше 2147483647</string>
     <string name="uniquie_value">Уникальные значения</string>
     <string-array name="sort">
         <item>Рандомно</item>

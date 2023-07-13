@@ -92,8 +92,8 @@
         android:id="@+id/countNumber"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginBottom="29dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginBottom="20dp"
         android:text="1"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/seekBar"
@@ -104,32 +104,23 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="7dp"
-        android:layout_marginTop="74dp"
+        android:layout_marginTop="176dp"
         android:layout_marginEnd="6dp"
         android:progress="1"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/ScrollView01"
-        app:layout_constraintTop_toBottomOf="@+id/textinput_error" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/countNumberText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="33dp"
+        android:layout_marginStart="20dp"
         android:text="@string/count_number"
         android:textSize="18sp"
         app:layout_constraintBaseline_toBaselineOf="@+id/countNumber"
         app:layout_constraintStart_toStartOf="@+id/seekBar" />
-
-    <TextView
-        android:id="@+id/textinput_error"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:textColor="@color/red"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toNumber" />
 
     <CheckBox
         android:id="@+id/checkBoxUniquie"

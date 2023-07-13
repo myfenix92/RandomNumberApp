@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.text.method.ScrollingMovementMethod;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -79,7 +81,6 @@ public class MainActivity extends AppCompatActivity {
         TextView fromNumber = findViewById(R.id.fromNumber);
         TextView toNumber = findViewById(R.id.toNumber);
         TextView outputNumber = findViewById(R.id.outputNumbers);
-        TextView errorText = findViewById(R.id.textinput_error);
         CheckBox checkBoxUniquie = findViewById(R.id.checkBoxUniquie);
         Spinner sortValues = findViewById(R.id.sortValue);
         SeekBar seekBar = findViewById(R.id.seekBar);
@@ -89,12 +90,16 @@ public class MainActivity extends AppCompatActivity {
 
 
         if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
-            errorText.setText(getResources().getString(R.string.error_empty));
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.error_empty), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP, 0, 60);
+            toast.show();
         } else if (Integer.parseInt(String.valueOf(toNumber.getText())) < Integer.parseInt(String.valueOf(fromNumber.getText()))) {
-            errorText.setText(getResources().getString(R.string.error_toNumber));
+            Toast toast = Toast.makeText(getApplicationContext(),
+                    getResources().getString(R.string.error_toNumber), Toast.LENGTH_SHORT);
+            toast.setGravity(Gravity.TOP, 0, 60);
+            toast.show();
         } else {
-            errorText.setText("");
-
             List<Integer> numbers = new ArrayList<Integer>();
 
             while (numbers.size() < Integer.parseInt(String.valueOf(seekBar.getProgress()))) {
