@@ -23,6 +23,8 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
+    GenerateRandomNumber generateRandomNumber = new GenerateRandomNumber();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,26 +59,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    public List<Integer> setSortBy(int sort, List<Integer> values) {
-        List<Integer> numbers = values;
-        switch (sort) {
-            case (0):
-            {
-                break;
-            }
-            case (1):
-            {
-                Collections.sort(numbers);
-                break;
-            }
-            case (2):
-            {
-                Collections.sort(numbers, Collections.reverseOrder());
-                break;
-            }
-        }
-        return numbers;
-    }
+
     public void chooseRangeNumbers(View view) {
         TextView fromNumber = findViewById(R.id.fromNumber);
         TextView toNumber = findViewById(R.id.toNumber);
@@ -84,10 +67,8 @@ public class MainActivity extends AppCompatActivity {
         CheckBox checkBoxUniquie = findViewById(R.id.checkBoxUniquie);
         Spinner sortValues = findViewById(R.id.sortValue);
         SeekBar seekBar = findViewById(R.id.seekBar);
-
+        List<Integer> numbers = new ArrayList<Integer>();
         String sortValuesType = String.valueOf(sortValues.getSelectedItemId());
-        int outputValue;
-
 
         if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
             Toast toast = Toast.makeText(getApplicationContext(),
@@ -100,27 +81,14 @@ public class MainActivity extends AppCompatActivity {
             toast.setGravity(Gravity.TOP, 0, 60);
             toast.show();
         } else {
-            List<Integer> numbers = new ArrayList<Integer>();
+            generateRandomNumber.setRange(String.valueOf(fromNumber.getText()), String.valueOf(toNumber.getText()), seekBar.getProgress());
+            seekBar.setProgress(generateRandomNumber.getValueRange(checkBoxUniquie.isChecked()));
+            numbers = generateRandomNumber.getRandomNumbers();
+        }
 
-            while (numbers.size() < Integer.parseInt(String.valueOf(seekBar.getProgress()))) {
-                outputValue = (int) (Math.random()*(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1)
-                        + Integer.parseInt(String.valueOf(fromNumber.getText())));
-
-                if (checkBoxUniquie.isChecked()) {
-                    if (Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1 < seekBar.getMax()) {
-                        seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
-                    }
-                    if (!numbers.contains(outputValue)) {
-                        numbers.add(outputValue);
-                    }
-                } else {
-                    numbers.add(outputValue);
-                }
-            }
-            outputNumber.setText(String.valueOf(setSortBy(Integer.parseInt(sortValuesType), numbers)).replaceAll("[\\]\\[]", ""));
+            outputNumber.setText(String.valueOf(generateRandomNumber.setSortBy(Integer.parseInt(sortValuesType), numbers)).replaceAll("[\\]\\[]", ""));
             Button sendValues = findViewById(R.id.sendValue);
             sendValues.setVisibility(View.VISIBLE);
-        }
     }
 
     public void sendValues(View view) {
