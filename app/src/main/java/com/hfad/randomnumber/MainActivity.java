@@ -43,10 +43,12 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onStartTrackingTouch(SeekBar seekBar) {
-                if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
+                if (String.valueOf(fromNumber.getText()).isEmpty() ||
+                        String.valueOf(toNumber.getText()).isEmpty()) {
                     seekBar.setMax(1);
                 } else {
-                    seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) - Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
+                    seekBar.setMax(Integer.parseInt(String.valueOf(toNumber.getText())) -
+                            Integer.parseInt(String.valueOf(fromNumber.getText())) + 1);
                 }
             }
 
@@ -70,23 +72,28 @@ public class MainActivity extends AppCompatActivity {
         List<Integer> numbers = new ArrayList<Integer>();
         String sortValuesType = String.valueOf(sortValues.getSelectedItemId());
 
-        if (String.valueOf(fromNumber.getText()).isEmpty() || String.valueOf(toNumber.getText()).isEmpty()) {
+        if (String.valueOf(fromNumber.getText()).isEmpty() ||
+                String.valueOf(toNumber.getText()).isEmpty()) {
             Toast toast = Toast.makeText(getApplicationContext(),
                     getResources().getString(R.string.error_empty), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 60);
             toast.show();
-        } else if (Integer.parseInt(String.valueOf(toNumber.getText())) < Integer.parseInt(String.valueOf(fromNumber.getText()))) {
+        } else if (Integer.parseInt(String.valueOf(toNumber.getText())) <
+                Integer.parseInt(String.valueOf(fromNumber.getText()))) {
             Toast toast = Toast.makeText(getApplicationContext(),
                     getResources().getString(R.string.error_toNumber), Toast.LENGTH_SHORT);
             toast.setGravity(Gravity.TOP, 0, 60);
             toast.show();
         } else {
-            generateRandomNumber.setRange(String.valueOf(fromNumber.getText()), String.valueOf(toNumber.getText()), seekBar.getProgress());
+            generateRandomNumber.setRange(String.valueOf(fromNumber.getText()),
+                    String.valueOf(toNumber.getText()), seekBar.getProgress());
             seekBar.setProgress(generateRandomNumber.getValueRange(checkBoxUniquie.isChecked()));
             numbers = generateRandomNumber.getRandomNumbers();
         }
 
-            outputNumber.setText(String.valueOf(generateRandomNumber.setSortBy(Integer.parseInt(sortValuesType), numbers)).replaceAll("[\\]\\[]", ""));
+            outputNumber.setText(String.valueOf(generateRandomNumber
+                    .setSortBy(Integer.parseInt(sortValuesType), numbers))
+                    .replaceAll("[\\]\\[]", ""));
             Button sendValues = findViewById(R.id.sendValue);
             sendValues.setVisibility(View.VISIBLE);
     }
